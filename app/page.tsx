@@ -27,18 +27,30 @@ import {
 } from "@nextui-org/react";
 import { useLocalstorageState } from 'rooks'
 import * as lodash from 'lodash'
-import { useForm, SubmitHandler } from "react-hook-form"
+import Jazzicon from 'react-jazzicon';
 import { motion } from 'framer-motion'
 import { Search } from 'lucide-react';
+import { useTonConnectModal, useTonAddress, useTonWallet, useTonConnectUI } from '@tonconnect/ui-react'
 const tradeTabs = ["swap", "send", "buy"]
 export default function Home() {
   const {
     isOpen: isOpenToken,
     onOpen: onOpenTokens,
     onClose: onCloseTokens } = useDisclosure();
+  const {
+    isOpen: isOpenAccount,
+    onOpen: onOpenAccount,
+    onClose: onCloseAccount } = useDisclosure();
+  const tonConnect = useTonConnectModal()
+  const tonAddress = useTonAddress(true)
+  const tonWallet = useTonWallet()
+  const [tonConnectUi] = useTonConnectUI()
   const [tradeTab, setTradeTab] = useState<"swap" | "send" | "buy">("swap")
   const onSetTradeTab = (tab: "swap" | "send" | "buy") => setTradeTab(tab)
   const onToggleTokensModal = () => isOpenToken ? onCloseTokens() : onOpenTokens()
+  const onToggleAccountModal = () => isOpenAccount ? onCloseAccount() : onOpenAccount()
+  const onDisconnnectWallet = async () => await tonConnectUi.disconnect()
+  const onConnectWallet = () => tonConnect.open()
   return (
     <>
       <Navbar isBlurred isBordered maxWidth="xl">
@@ -52,9 +64,23 @@ export default function Home() {
         </NavbarContent>
         <NavbarContent justify="end" as={"div"}>
           <NavbarItem>
-            <Button as={Link} color="primary" href="#" variant="shadow">
-              Connect Wallet
-            </Button>
+            {tonConnectUi?.connected ? (
+              <Button
+                onClick={onToggleAccountModal}
+                variant='bordered'
+                startContent={
+                  <Jazzicon />
+                }>
+                {tonAddress.substring(0, 3)}...{tonAddress.substring(tonAddress.length - 3)}
+              </Button>
+            ) : (
+              <Button
+                color="primary"
+                variant="shadow"
+                onClick={onConnectWallet}>
+                Connect Wallet
+              </Button>
+            )}
           </NavbarItem>
         </NavbarContent>
       </Navbar>
@@ -209,6 +235,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Tokens modal */}
       <Modal
         size='md'
         isOpen={isOpenToken}
@@ -247,6 +274,21 @@ export default function Home() {
                 </Button>
               ))}
             </div>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
+      {/* Account modal */}
+      <Modal
+        size='md'
+        isOpen={isOpenAccount}
+        backdrop='blur'
+        scrollBehavior='inside'
+        onClose={onToggleAccountModal}>
+        <ModalContent>
+          <ModalHeader>Account</ModalHeader>
+          <ModalBody>
+
           </ModalBody>
         </ModalContent>
       </Modal>

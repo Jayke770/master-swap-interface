@@ -2,7 +2,8 @@
 import { NextUIProvider as NUIProvider } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { AnimatePresence } from 'framer-motion'
-export default function NextUIProvider({ children }: { children: React.ReactNode }) {
+import { type ReactNode } from 'react'
+export default function NextUIProvider({ children }: { children: ReactNode }) {
     const router = useRouter()
     return (
         <NUIProvider navigate={router.push}>

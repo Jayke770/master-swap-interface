@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NextUIProvider from '@/components/providers/nextui'
+import TonProvider from "@/components/providers/tonconnect";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Master Swap",
@@ -16,7 +17,9 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${inter.className} h-[100dvh]`}>
         <NextUIProvider>
-          {children}
+          <TonProvider>
+            {children}
+          </TonProvider>
         </NextUIProvider>
       </body>
     </html>
