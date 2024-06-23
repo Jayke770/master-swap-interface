@@ -22,7 +22,8 @@ import {
   useDisclosure,
   ModalContent,
   ModalHeader,
-  ModalBody
+  ModalBody,
+  ButtonGroup
 } from "@nextui-org/react";
 import { useLocalstorageState } from 'rooks'
 import * as lodash from 'lodash'
@@ -209,8 +210,9 @@ export default function Home() {
       </section>
 
       <Modal
-        size='xl'
+        size='md'
         isOpen={isOpenToken}
+        backdrop='blur'
         scrollBehavior='inside'
         onClose={onToggleTokensModal}>
         <ModalContent>
@@ -222,6 +224,29 @@ export default function Home() {
               color='primary'
               size='lg'
               startContent={<Search strokeWidth={"1.5"} />} />
+            <div className='flex flex-col gap-2'>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Button
+                  key={i}
+                  as={"div"}
+                  role='button'
+                  variant='light'
+                  className=' justify-start items-center h-16'
+                  startContent={
+                    <Image
+                      className="w-10 h-10"
+                      radius="full"
+                      removeWrapper
+                      src="https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
+                      alt="coin" />
+                  }>
+                  <div>
+                    <p className=' font-semibold text-md '>USDC Coin</p>
+                    <span className='text-xs font-light dark:text-gray-400'>USDC</span>
+                  </div>
+                </Button>
+              ))}
+            </div>
           </ModalBody>
         </ModalContent>
       </Modal>
