@@ -23,14 +23,25 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ButtonGroup
+  ButtonGroup,
+  ModalFooter,
+  CardBody,
+  CardHeader,
+  CardFooter,
+  Tooltip
 } from "@nextui-org/react";
 import { useLocalstorageState } from 'rooks'
 import * as lodash from 'lodash'
 import Jazzicon from 'react-jazzicon';
 import { motion } from 'framer-motion'
-import { Search } from 'lucide-react';
-import { useTonConnectModal, useTonAddress, useTonWallet, useTonConnectUI } from '@tonconnect/ui-react'
+import { Gem, Search } from 'lucide-react';
+import CountUp from 'react-countup';
+import {
+  useTonConnectModal,
+  useTonAddress,
+  useTonWallet,
+  useTonConnectUI,
+} from '@tonconnect/ui-react'
 const tradeTabs = ["swap", "send", "buy"]
 export default function Home() {
   const {
@@ -51,6 +62,9 @@ export default function Home() {
   const onToggleAccountModal = () => isOpenAccount ? onCloseAccount() : onOpenAccount()
   const onDisconnnectWallet = async () => await tonConnectUi.disconnect()
   const onConnectWallet = () => tonConnect.open()
+  console.log(tonWallet
+
+  )
   return (
     <>
       <Navbar isBlurred isBordered maxWidth="xl">
@@ -62,6 +76,7 @@ export default function Home() {
             <p className="font-bold text-inherit">MasterSwap</p>
           </NavbarBrand>
         </NavbarContent>
+
         <NavbarContent justify="end" as={"div"}>
           <NavbarItem>
             {tonConnectUi?.connected ? (
@@ -288,8 +303,38 @@ export default function Home() {
         <ModalContent>
           <ModalHeader>Account</ModalHeader>
           <ModalBody>
-
+            <Card shadow='sm'>
+              <CardBody>
+                <div className='flex flex-col gap-1'>
+                  <span className='text-md font-light dark:text-zinc-400'>Balance</span>
+                  <CountUp
+                    className='text-3xl font-bold'
+                    start={0}
+                    end={10}
+                    suffix=' TON' />
+                </div>
+                <div className='flex gap-2 mt-3'>
+                  <Tooltip content="Copy Address">
+                    <Button
+                      variant='flat'>{tonAddress?.substring(0, 5)}...{tonAddress?.substring(tonAddress.length - 5)}</Button>
+                  </Tooltip>
+                  <Tooltip>
+                    <Button
+                      as={Link}
+                      target='_blank'
+                      href={`https://tonviewer.com/${tonAddress}`}
+                      variant='flat'
+                      isIconOnly>
+                      <Gem />
+                    </Button>
+                  </Tooltip>
+                </div>
+              </CardBody>
+            </Card>
           </ModalBody>
+          <ModalFooter>
+            <Button color='danger'>Disconnect</Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
