@@ -296,7 +296,7 @@ export default function Home() {
       {/* Account modal */}
       <Modal
         size='md'
-        isOpen={isOpenAccount}
+        isOpen={isOpenAccount && tonConnectUi.connected}
         backdrop='blur'
         scrollBehavior='inside'
         onClose={onToggleAccountModal}>
@@ -333,7 +333,11 @@ export default function Home() {
             </Card>
           </ModalBody>
           <ModalFooter>
-            <Button color='danger'>Disconnect</Button>
+            <Button
+              color='danger'
+              variant='bordered'
+              onClick={onDisconnnectWallet}
+              fullWidth>Disconnect Wallet</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
