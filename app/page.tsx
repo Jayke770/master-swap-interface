@@ -62,9 +62,6 @@ export default function Home() {
   const onToggleAccountModal = () => isOpenAccount ? onCloseAccount() : onOpenAccount()
   const onDisconnnectWallet = async () => await tonConnectUi.disconnect()
   const onConnectWallet = () => tonConnect.open()
-  console.log(tonWallet
-
-  )
   return (
     <>
       <Navbar isBlurred isBordered maxWidth="xl">
