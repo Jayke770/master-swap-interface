@@ -42,8 +42,10 @@ import {
   useTonWallet,
   useTonConnectUI,
 } from '@tonconnect/ui-react'
+import useTokens from '@/hooks/useTokens';
 const tradeTabs = ["swap", "send", "buy"]
 export default function Home() {
+  const { tokens } = useTokens()
   const {
     isOpen: isOpenToken,
     onOpen: onOpenTokens,
@@ -264,9 +266,9 @@ export default function Home() {
               size='lg'
               startContent={<Search strokeWidth={"1.5"} />} />
             <div className='flex flex-col gap-2'>
-              {Array.from({ length: 5 }).map((_, i) => (
+              {tokens?.map(token => (
                 <Button
-                  key={i}
+                  key={token.contractAddress}
                   as={"div"}
                   role='button'
                   variant='light'
@@ -276,12 +278,12 @@ export default function Home() {
                       className="w-10 h-10"
                       radius="full"
                       removeWrapper
-                      src="https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
-                      alt="coin" />
+                      src={token.imageUrl}
+                      alt={token.displayName} />
                   }>
                   <div>
-                    <p className=' font-semibold text-md '>USDC Coin</p>
-                    <span className='text-xs font-light dark:text-gray-400'>USDC</span>
+                    <p className=' font-semibold text-md '>{token.displayName}</p>
+                    <span className='text-xs font-light dark:text-gray-400'>{token.symbol}</span>
                   </div>
                 </Button>
               ))}
