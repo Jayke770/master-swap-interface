@@ -8,7 +8,7 @@ export default function TonProvider({ children }: { children: ReactNode }) {
             uiPreferences={{ theme: THEME.DARK }}
             restoreConnection
             enableAndroidBackHandler
-            manifestUrl={`${envClientConfig.TONCONNECT_URL}/tonconnect-manifest.json`}>
+            manifestUrl={`${envClientConfig.TONCONNECT_URL}/manifest.json`}>
             {children}
         </TonConnectUIProvider>
     )
