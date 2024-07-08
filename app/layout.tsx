@@ -22,6 +22,7 @@ export default function RootLayout({
             {children}
           </TonProvider>
         </NextUIProvider>
+        <Script src="https://sad.adsgram.ai/js/sad.min.js" strategy="beforeInteractive" />
         <Script strategy='beforeInteractive' src='https://telegram.org/js/telegram-web-app.js' />
       </body>
     </html>
