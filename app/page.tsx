@@ -65,7 +65,7 @@ export default function Home() {
   const onDisconnnectWallet = async () => await tonConnectUi.disconnect()
   const onConnectWallet = () => tonConnect.open()
   const test = () => {
-    const AdController = (window as any).Adsgram.init({ blockId: "655" });
+    const AdController = (window as any).Adsgram.init({ blockId: "657" });
     AdController.show().then((result: any) => {
       console.log(result)
     }).catch((result: any) => {
