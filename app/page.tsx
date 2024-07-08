@@ -43,10 +43,10 @@ import {
   useTonConnectUI,
 } from '@tonconnect/ui-react'
 import useTokens from '@/hooks/useTokens';
-import { useAdsgram } from 'adsgram-for-telegram';
+import { Adsgram } from 'adsgram-for-telegram';
 const tradeTabs = ["swap", "send", "buy"]
 export default function Home() {
-  const adsgram = useAdsgram({ debug: true, blockId: "655" });
+  const [adsgram, setAdsgram] = useState<Adsgram>()
   const { tokens } = useTokens()
   const {
     isOpen: isOpenToken,
@@ -67,17 +67,15 @@ export default function Home() {
   const onDisconnnectWallet = async () => await tonConnectUi.disconnect()
   const onConnectWallet = () => tonConnect.open()
   const test = async () => {
-    adsgram.show().then(result => {
+    adsgram?.show().then(result => {
       console.log("Show result:", result);
     }).catch((e) => {
       console.log(e)
     })
   }
   useEffect(() => {
-    adsgram.addEventListener('onError', (event, data) => {
-      console.log("Error event occurred:", data);
-    });
-  }, [adsgram]);
+    setAdsgram(new Adsgram({ blockId: "655" }))
+  }, [])
   return (
     <>
       <Navbar isBlurred isBordered maxWidth="xl">
