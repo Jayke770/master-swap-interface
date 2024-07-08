@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -72,6 +72,12 @@ export default function Home() {
       console.log(result)
     })
   }
+  useEffect(() => {
+    //@ts-ignore
+    window?.Telegram?.WebApp?.ready()
+    //@ts-ignore
+    window?.Telegram?.WebApp?.expand()
+  }, [])
   return (
     <>
       <Navbar isBlurred isBordered maxWidth="xl">
