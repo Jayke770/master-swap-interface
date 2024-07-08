@@ -13,6 +13,7 @@
     "@ston-fi/api": "^0.9.0",
     "@telegram-apps/telegram-ui": "^2.1.4",
     "@tonconnect/ui-react": "^2.0.5",
+    "adsgram-for-telegram": "^1.0.20",
     "envalid": "^8.0.0",
     "framer-motion": "^11.2.11",
     "lodash": "^4.17.21",

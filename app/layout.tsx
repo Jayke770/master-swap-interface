@@ -22,7 +22,6 @@ export default function RootLayout({
             {children}
           </TonProvider>
         </NextUIProvider>
-        <Script src="https://sad.adsgram.ai/js/sad.min.js" strategy="beforeInteractive" />
       </body>
     </html>
   );
