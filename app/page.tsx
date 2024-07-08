@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -43,10 +43,8 @@ import {
   useTonConnectUI,
 } from '@tonconnect/ui-react'
 import useTokens from '@/hooks/useTokens';
-import { Adsgram } from 'adsgram-for-telegram';
 const tradeTabs = ["swap", "send", "buy"]
 export default function Home() {
-  const [adsgram, setAdsgram] = useState<Adsgram>()
   const { tokens } = useTokens()
   const {
     isOpen: isOpenToken,
@@ -66,16 +64,14 @@ export default function Home() {
   const onToggleAccountModal = () => isOpenAccount ? onCloseAccount() : onOpenAccount()
   const onDisconnnectWallet = async () => await tonConnectUi.disconnect()
   const onConnectWallet = () => tonConnect.open()
-  const test = async () => {
-    adsgram?.show().then(result => {
-      console.log("Show result:", result);
-    }).catch((e) => {
-      console.log(e)
+  const test = () => {
+    const AdController = (window as any).Adsgram.init({ blockId: "655", debug: true });
+    AdController.show().then((result: any) => {
+      console.log(result)
+    }).catch((result: any) => {
+      console.log(result)
     })
   }
-  useEffect(() => {
-    setAdsgram(new Adsgram({ blockId: "655" }))
-  }, [])
   return (
     <>
       <Navbar isBlurred isBordered maxWidth="xl">
