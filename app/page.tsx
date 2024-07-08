@@ -64,13 +64,10 @@ export default function Home() {
   const onToggleAccountModal = () => isOpenAccount ? onCloseAccount() : onOpenAccount()
   const onDisconnnectWallet = async () => await tonConnectUi.disconnect()
   const onConnectWallet = () => tonConnect.open()
-  const test = () => {
+  const test = async () => {
     const AdController = (window as any).Adsgram.init({ blockId: "655", debug: true });
-    AdController.show().then((result: any) => {
-      console.log(result)
-    }).catch((result: any) => {
-      console.log(result)
-    })
+    await AdController.load()
+    await AdController.show()
   }
   return (
     <>
