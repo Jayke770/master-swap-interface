@@ -64,6 +64,14 @@ export default function Home() {
   const onToggleAccountModal = () => isOpenAccount ? onCloseAccount() : onOpenAccount()
   const onDisconnnectWallet = async () => await tonConnectUi.disconnect()
   const onConnectWallet = () => tonConnect.open()
+  const test = () => {
+    const AdController = (window as any).Adsgram.init({ blockId: "655", debug: true });
+    AdController.show().then((result: any) => {
+      console.log(result)
+    }).catch((result: any) => {
+      console.log(result)
+    })
+  }
   return (
     <>
       <Navbar isBlurred isBordered maxWidth="xl">
@@ -241,7 +249,8 @@ export default function Home() {
                   variant="shadow"
                   color="primary"
                   fullWidth
-                  type="submit">Swap</Button>
+                  type="submit"
+                  onClick={test}>Swap</Button>
               </motion.div>
             </div>
           )}

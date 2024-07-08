@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NextUIProvider from '@/components/providers/nextui'
 import TonProvider from "@/components/providers/tonconnect";
+import Script from 'next/script'
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Master Swap",
@@ -21,6 +22,7 @@ export default function RootLayout({
             {children}
           </TonProvider>
         </NextUIProvider>
+        <Script src="https://sad.adsgram.ai/js/sad.min.js" strategy="beforeInteractive" />
       </body>
     </html>
   );
